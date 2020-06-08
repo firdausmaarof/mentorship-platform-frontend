@@ -22,7 +22,6 @@ function Signup() {
     Api.post('/signup', values)
       .then(async function (response) {
         const token = response.data.auth_token;
-        console.log('Got token');
         Cookies.set('token', token);
         Router.push('/mentee/profile');
       })
