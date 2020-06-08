@@ -52,7 +52,7 @@ export const ApiAuthProvider = ({ children }) => {
   const logout = () => {
     Cookies.remove('token');
     setUser(null);
-    window.location.pathname = '/';
+    Router.push('/');
   };
 
   return (

@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import 'antd/dist/antd.css';
 import '../styles/vars.css';
@@ -11,6 +12,13 @@ export default function MyApp({ Component, pageProps }) {
   if (router.pathname.startsWith('/mentee')) {
     return (
       <ApiAuthProvider>
+        <Head>
+          <title>Mentorship Platform</title>
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </Head>
         <Component {...pageProps} />
       </ApiAuthProvider>
     );

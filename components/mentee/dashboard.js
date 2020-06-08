@@ -1,73 +1,24 @@
-import { useState } from 'react';
-import { Layout, Menu, Typography } from 'antd';
-import {
-  SearchOutlined,
-  CalendarOutlined,
-  UserOutlined,
-  LogoutOutlined,
-} from '@ant-design/icons';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { Layout, Row, Col } from 'antd';
 
-const { Header, Content, Footer, Sider } = Layout;
+import CustomHeader from 'components/mentee/CustomHeader';
+
+const { Content, Footer } = Layout;
 
 function Dashboard(props) {
-  const [collapsed, setCollapsed] = useState(false);
-  const { user, logout } = props;
-  const router = useRouter();
-
-  const onCollapse = (collapsed) => {
-    setCollapsed(collapsed);
-  };
-
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <div className="logo">{!collapsed && <span>FutureLab</span>}</div>
-        <Menu theme="dark" selectedKeys={[router.pathname]} mode="inline">
-          <Menu.Item key="/mentee/profile" icon={<UserOutlined />}>
-            <Link href="/mentee/login">
-              <a>Profile</a>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/mentee/mentors" icon={<SearchOutlined />}>
-            <Link href="/mentee/mentors">
-              <a>Find Mentors</a>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/mentee/sessions" icon={<CalendarOutlined />}>
-            My Sessions
-          </Menu.Item>
-          {user && (
-            <Menu.Item
-              key="/mentee/logout"
-              icon={<LogoutOutlined />}
-              onClick={() => logout()}
-            >
-              Logout
-            </Menu.Item>
-          )}
-        </Menu>
-      </Sider>
-      <Layout className="site-layout">
-        <Header
-          className="site-layout-background"
-          style={{ padding: '10px 20px' }}
-        >
-          <Typography.Title level={2}>Mentorship System</Typography.Title>
-        </Header>
-        <Content style={{ margin: '0 16px' }}>
-          <div
-            className="site-layout-background"
-            style={{ padding: 24, minHeight: 360 }}
-          >
-            {props.children}
-          </div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          ©2020 Created by Firdaus Maarof
-        </Footer>
-      </Layout>
+    <Layout id="components-layout-demo-fixed" style={{ background: '#fff' }}>
+      <CustomHeader />
+      <Content
+        className="site-layout"
+        style={{ padding: '0 50px', marginTop: 64, minHeight: '80vh' }}
+      >
+        <Row style={{ padding: '50px 0' }}>
+          <Col span="24">{props.children}</Col>
+        </Row>
+      </Content>
+      <Footer style={{ textAlign: 'center', background: '#fff' }}>
+        ©2020 Created by Firdaus Maarof
+      </Footer>
     </Layout>
   );
 }

@@ -4,7 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
 import { withAuth } from 'contexts/api/auth';
-import Dashboard from 'components/mentee/dashboard';
+import Dashboard from 'components/mentee/Dashboard';
 import Api from 'lib/api';
 
 function Mentors(props) {
@@ -37,9 +37,8 @@ function Mentors(props) {
               <List.Item.Meta
                 avatar={<Avatar icon={<UserOutlined />} />}
                 title={<a href="https://ant.design">{item.name}</a>}
-                description={item.email}
+                description={item.about}
               />
-              {/* <div>content</div> */}
             </Skeleton>
           </List.Item>
         )}

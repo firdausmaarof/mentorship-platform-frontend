@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Descriptions } from 'antd';
+import React from 'react';
+import { Descriptions, Typography } from 'antd';
 
 import { withAuth } from 'contexts/api/auth';
-import Dashboard from 'components/mentee/dashboard';
+import Dashboard from 'components/mentee/Dashboard';
+
+const { Title } = Typography;
 
 function Profile(props) {
   const { user, loading } = props;
@@ -11,7 +13,7 @@ function Profile(props) {
 
   return (
     <Dashboard {...props}>
-      <Descriptions title="Profile Info">
+      <Descriptions title={<Title level={2}>Profile Info</Title>}>
         <Descriptions.Item label="Name">{user.name}</Descriptions.Item>
         <Descriptions.Item label="Email">{user.email}</Descriptions.Item>
       </Descriptions>

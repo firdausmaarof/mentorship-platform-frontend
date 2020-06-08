@@ -7,10 +7,6 @@
   text-align: center;
 }
 
-.site-layout .site-layout-background {
-  background: #fff;
-}
-
 #components-form-demo-normal-login .login-form {
   max-width: 300px;
 }
@@ -22,4 +18,19 @@
 }
 #components-form-demo-normal-login .login-form-button {
   width: 100%;
+}
+
+#components-layout-demo-fixed .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 24px 16px 0;
+  float: left;
+}
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+#components-form-demo-control-hooks .ant-btn {
+  margin-right: 8px;
 }

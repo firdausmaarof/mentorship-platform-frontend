@@ -1,35 +1,22 @@
-import { Row, Col, Button, Typography } from 'antd';
-import Link from 'next/link';
+import { Row, Col, Typography } from 'antd';
+
+import MainLayout from 'components/MainLayout';
 
 const { Title } = Typography;
 
 export default function Home() {
   return (
-    <Row
-      type="flex"
-      justify="center"
-      align="middle"
-      style={{ minHeight: '100vh' }}
-    >
-      <Col span={8} align="middle">
-        <Col>
-          <Title level={2}>Are you a</Title>
+    <MainLayout>
+      <Row
+        type="flex"
+        justify="center"
+        align="middle"
+        style={{ minHeight: '80vh' }}
+      >
+        <Col span={24} align="middle">
+          <Title>Welcome to Mentorship Platform</Title>
         </Col>
-        <Button type="primary" htmlType="submit">
-          Mentor
-        </Button>
-        <Col>
-          <Title level={2}>or</Title>
-        </Col>
-        <Link href="/mentee/login">
-          <Button type="primary" htmlType="submit">
-            Mentee
-          </Button>
-        </Link>
-        <Col>
-          <Title level={2}>?</Title>
-        </Col>
-      </Col>
-    </Row>
+      </Row>
+    </MainLayout>
   );
 }
