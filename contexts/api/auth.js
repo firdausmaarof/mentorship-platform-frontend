@@ -37,6 +37,18 @@ export const ApiAuthProvider = ({ children }) => {
     }
   };
 
+  const signup = async (values) => {
+    const {
+      data: { auth_token },
+    } = await Api.post('/signup', values);
+
+    if (auth_token) {
+      Cookies.set('token', auth_token, { expires: 60 });
+      const { data } = await Api.get('/profile');
+      setUser(data);
+    }
+  };
+
   const logout = () => {
     Cookies.remove('token');
     setUser(null);
@@ -45,7 +57,7 @@ export const ApiAuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, user, login, loading, logout }}
+      value={{ isAuthenticated: !!user, user, login, loading, logout, signup }}
     >
       {children}
     </AuthContext.Provider>

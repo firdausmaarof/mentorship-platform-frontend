@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Input, Button, Typography, Alert } from 'antd';
 import Router from 'next/router';
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 
 import useAuth from 'contexts/api/auth';
 
@@ -39,38 +41,49 @@ function Login(props) {
       style={{ minHeight: '100vh' }}
     >
       <Col span={8}>
-        <Col offset="8" span="16">
-          <Title level={2}>Login</Title>
+        <Col align="middle">
+          <Title level={2}>Mentee Login</Title>
         </Col>
         {error && (
           <Alert message={error} type="error" style={{ marginBottom: 15 }} />
         )}
         <Form
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          name="basic"
-          initialValues={{ remember: true }}
+          name="normal_login"
+          className="login-form"
+          id="components-form-demo-normal-login"
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
         >
           <Form.Item
-            label="Email"
             name="email"
             rules={[{ required: true, message: 'Please input your email!' }]}
           >
-            <Input />
+            <Input
+              prefix={<MailOutlined className="site-form-item-icon" />}
+              placeholder="Email"
+            />
           </Form.Item>
           <Form.Item
-            label="Password"
             name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[{ required: true, message: 'Please input your Password!' }]}
           >
-            <Input.Password />
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+            />
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Login
             </Button>
+            Or{' '}
+            <Link href="/mentee/signup">
+              <a>register now!</a>
+            </Link>
           </Form.Item>
         </Form>
       </Col>

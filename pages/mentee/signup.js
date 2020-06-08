@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Input, Button, Typography, Alert } from 'antd';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
+import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 
 import Api from 'lib/api';
 import useAuth from 'contexts/api/auth';
-import Profile from 'pages/mentee/profile';
+import Login from './login';
 
 const { Title } = Typography;
 
 function Signup() {
-  const { user, loading } = useAuth();
+  const { user, loading, signup } = useAuth();
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -18,11 +20,9 @@ function Signup() {
   }, [loading]);
 
   const onFinish = (values) => {
-    console.log('Success:', values);
-    Api.post('/signup', values)
-      .then(async function (response) {
-        const token = response.data.auth_token;
-        Cookies.set('token', token);
+    signup(values)
+      .then(function (response) {
+        setError(null);
         Router.push('/mentee/profile');
       })
       .catch(function (error) {
@@ -43,58 +43,71 @@ function Signup() {
       align="middle"
       style={{ minHeight: '100vh' }}
     >
-      <Col span={12}>
-        <Col offset="8" span="16">
-          <Title level={2}>Sign Up</Title>
+      <Col span={8}>
+        <Col align="middle">
+          <Title level={2}>Mentee Sign Up</Title>
         </Col>
         {error && (
           <Alert message={error} type="error" style={{ marginBottom: 15 }} />
         )}
         <Form
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          name="basic"
-          initialValues={{ remember: true }}
+          name="normal_login"
+          className="login-form"
+          id="components-form-demo-normal-login"
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
         >
           <Form.Item
-            label="Name"
             name="name"
             rules={[{ required: true, message: 'Please input your name!' }]}
           >
-            <Input />
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Name"
+            />
           </Form.Item>
           <Form.Item
-            label="Email"
             name="email"
             rules={[{ required: true, message: 'Please input your email!' }]}
           >
-            <Input />
+            <Input
+              prefix={<MailOutlined className="site-form-item-icon" />}
+              placeholder="Email"
+            />
           </Form.Item>
           <Form.Item
-            label="Password"
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <Input.Password />
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+            />
           </Form.Item>
           <Form.Item
-            label="Password Confirmation"
-            name="passwordConfirmation"
+            name="password_confirmation"
             rules={[
-              {
-                required: true,
-                message: 'Please input your password confirmation!',
-              },
+              { required: true, message: 'Please input your password again!' },
             ]}
           >
-            <Input.Password />
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password Confirmation"
+            />
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Sign Up
             </Button>
+            Or{' '}
+            <Link href="/mentee/login">
+              <a>login now!</a>
+            </Link>
           </Form.Item>
         </Form>
       </Col>
