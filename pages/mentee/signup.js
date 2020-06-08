@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Row, Col, Form, Input, Button, Typography } from 'antd';
+import { Row, Col, Form, Input, Button, Typography, Alert } from 'antd';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
 
@@ -11,6 +11,7 @@ const { Title } = Typography;
 
 function Signup() {
   const { user, loading } = useAuth();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (user) Router.push('/mentee/profile');
@@ -18,7 +19,7 @@ function Signup() {
 
   const onFinish = (values) => {
     console.log('Success:', values);
-    Api.post('api/signup', values)
+    Api.post('/signup', values)
       .then(async function (response) {
         const token = response.data.auth_token;
         console.log('Got token');
@@ -26,7 +27,7 @@ function Signup() {
         Router.push('/mentee/profile');
       })
       .catch(function (error) {
-        console.log(error);
+        setError(error.response.data.message);
       });
   };
 
@@ -47,6 +48,9 @@ function Signup() {
         <Col offset="8" span="16">
           <Title level={2}>Sign Up</Title>
         </Col>
+        {error && (
+          <Alert message={error} type="error" style={{ marginBottom: 15 }} />
+        )}
         <Form
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
