@@ -14,9 +14,7 @@ export const ApiAuthProvider = ({ children }) => {
     async function loadUserFromCookies() {
       const token = Cookies.get('token');
       if (token) {
-        console.log("Got a token in the cookies, let's see if it is valid");
-        Api.defaults.headers.Authorization = `${token}`;
-        const { data } = await Api.get('api/profile');
+        const { data } = await Api.get('/profile');
         if (data) setUser(data);
       }
       setLoading(false);
@@ -27,18 +25,15 @@ export const ApiAuthProvider = ({ children }) => {
   const login = async (email, password) => {
     const {
       data: { auth_token },
-    } = await Api.post('api/auth/login', {
+    } = await Api.post('/auth/login', {
       email,
       password,
     });
 
     if (auth_token) {
-      console.log('Got token');
       Cookies.set('token', auth_token, { expires: 60 });
-      Api.defaults.headers.Authorization = `${auth_token}`;
-      const { data } = await Api.get('api/profile');
+      const { data } = await Api.get('/profile');
       setUser(data);
-      console.log('Got user', data);
     }
   };
 
@@ -63,8 +58,8 @@ export default function useAuth() {
   return context;
 }
 
-export function withAuth(Component) {
-  return () => {
+export function withAuth(WrappedComponent) {
+  const Component = (props) => {
     const { user, isAuthenticated, loading, login, logout } = useAuth();
     const router = useRouter();
 
@@ -72,6 +67,15 @@ export function withAuth(Component) {
       if (!isAuthenticated && !loading) Router.push('/mentee/login');
     }, [loading, isAuthenticated]);
 
-    return <Component user={user} logout={logout} loading={loading} />;
+    return (
+      <WrappedComponent
+        {...props}
+        user={user}
+        logout={logout}
+        loading={loading}
+      />
+    );
   };
+
+  return Component;
 }

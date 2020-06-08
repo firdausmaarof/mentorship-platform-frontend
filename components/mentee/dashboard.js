@@ -7,6 +7,7 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -25,10 +26,14 @@ function Dashboard(props) {
         <div className="logo">{!collapsed && <span>FutureLab</span>}</div>
         <Menu theme="dark" selectedKeys={[router.pathname]} mode="inline">
           <Menu.Item key="/mentee/profile" icon={<UserOutlined />}>
-            Profile
+            <Link href="/mentee/login">
+              <a>Profile</a>
+            </Link>
           </Menu.Item>
           <Menu.Item key="/mentee/mentors" icon={<SearchOutlined />}>
-            Find Mentors
+            <Link href="/mentee/mentors">
+              <a>Find Mentors</a>
+            </Link>
           </Menu.Item>
           <Menu.Item key="/mentee/sessions" icon={<CalendarOutlined />}>
             My Sessions
