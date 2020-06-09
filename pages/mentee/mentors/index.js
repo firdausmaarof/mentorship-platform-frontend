@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { List, Skeleton, Avatar } from 'antd';
+import { List, Skeleton, Avatar, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
 import { withAuth } from 'contexts/api/auth';
 import Dashboard from 'components/mentee/Dashboard';
 import Api from 'lib/api';
+
+const { Title } = Typography;
 
 function Mentors(props) {
   const [mentors, setMentors] = useState([]);
@@ -19,6 +21,7 @@ function Mentors(props) {
 
   return (
     <Dashboard {...props}>
+      <Title level={3}>Mentor List</Title>
       <List
         className="demo-loadmore-list"
         // loading={initLoading}

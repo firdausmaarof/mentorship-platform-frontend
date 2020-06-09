@@ -28,7 +28,7 @@ function Mentor(props) {
 
   return (
     <Dashboard {...props}>
-      <Descriptions title={<Title level={2}>Mentor Info</Title>}>
+      <Descriptions title={<Title level={3}>Mentor Info</Title>}>
         <Descriptions.Item label="Name">{mentor.name}</Descriptions.Item>
         <Descriptions.Item label="Email">{mentor.email}</Descriptions.Item>
         <Descriptions.Item label="About">{mentor.about}</Descriptions.Item>

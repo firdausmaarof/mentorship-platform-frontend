@@ -43,7 +43,9 @@ export default function CustomHeader() {
             </Link>
           </Menu.Item>
           <Menu.Item key="/mentee/sessions" icon={<CalendarOutlined />}>
-            My Sessions
+            <Link href="/mentee/sessions">
+              <a>My Sessions</a>
+            </Link>
           </Menu.Item>
           <Menu.Item
             key="/mentee/logout"

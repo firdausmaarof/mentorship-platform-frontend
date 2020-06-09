@@ -51,11 +51,11 @@ export default function SessionForm() {
   };
 
   return (
-    <Row type="flex" justify="center" align="middle">
+    <Row>
       <Col xs={24} sm={20} md={16} lg={12} xl={8}>
         <Row>
           <Col span="24">
-            <Title level={2}>Request a Session</Title>
+            <Title level={3}>Request a Session</Title>
           </Col>
         </Row>
         {error && (
