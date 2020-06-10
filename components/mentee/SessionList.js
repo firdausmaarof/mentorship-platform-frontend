@@ -1,27 +1,12 @@
 import { useState, useEffect } from 'react';
-import {
-  List,
-  Avatar,
-  Button,
-  Skeleton,
-  Tag,
-  Popconfirm,
-  message,
-  Typography,
-} from 'antd';
+import { List, Avatar, Skeleton, Popconfirm, message, Typography } from 'antd';
 import moment from 'moment';
 import { UserOutlined } from '@ant-design/icons';
 
 import Api from 'lib/api';
+import SessionTag from 'components/mentee/SessionTag';
 
 const { Title } = Typography;
-
-const tagColor = {
-  pending: 'processing',
-  confirmed: 'success',
-  cancelled: 'warning',
-  rejected: 'error',
-};
 
 export default function SessionList() {
   const [sessions, setSessions] = useState([]);
@@ -53,11 +38,7 @@ export default function SessionList() {
         itemLayout="horizontal"
         dataSource={sessions}
         renderItem={(session) => (
-          <List.Item
-            actions={[
-              <Tag color={tagColor[session.status]}>{session.status}</Tag>,
-            ]}
-          >
+          <List.Item actions={[<SessionTag status={session.status} />]}>
             <Skeleton avatar title={false} loading={session.loading} active>
               <List.Item.Meta
                 avatar={<Avatar icon={<UserOutlined />} />}

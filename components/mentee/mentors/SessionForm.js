@@ -30,6 +30,7 @@ export default function SessionForm() {
         form.resetFields();
         setIsSubmitting(false);
         message.success(response.data.message);
+        window.location = `/mentee/sessions/${response.data.session.id}`;
       })
       .catch(function (error) {
         setIsSubmitting(false);
@@ -87,7 +88,7 @@ export default function SessionForm() {
             rules={[{ required: true }]}
           >
             <DatePicker
-              showTime={{ format: 'hh' }}
+              showTime={{ format: 'hh:mm' }}
               format="YYYY-MM-DD HH:mm"
               onChange={onChange}
               onOk={onOk}
